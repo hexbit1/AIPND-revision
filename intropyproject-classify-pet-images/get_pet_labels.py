@@ -50,5 +50,10 @@ def process_dogfile(f):
      """
      Process the dog file name to generate the dog name from it.
      """
+     # Ignore hidden files
+     if f[0] == ".":
+          return
+     
      cnt = [ch.lower() for ch in f.split('_') if ch.isalpha()]
+     #return the string a list
      return [" ".join(cnt)]
