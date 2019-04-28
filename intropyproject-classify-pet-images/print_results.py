@@ -62,5 +62,30 @@ def print_results(results_dic, results_stats_dic, model,
     Returns:
            None - simply printing results.
     """    
-    None
+    print()
+    print("********************************Printing Results******************************")
+    print("The CNN model used is : {}".format(model))
+    #Number of Images
+    print("Number of Images: {}".format(results_stats_dic['n_images']))
+    print("Number of Dog Images: {}".format(results_stats_dic['n_dogs_img']))
+    print('Number of "Not-a" Dog Images: {}'.format(results_stats_dic['n_notdogs_img']))
+    print("***************************")
+    print("% Correct Dogs: {}".format(results_stats_dic['pct_correct_dogs']))
+    print("% Correct Breed: {}".format(results_stats_dic['pct_correct_breed']))
+    print('% Correct "Not-a" Dog: {}'.format(results_stats_dic['pct_correct_notdogs']))
+    print('% Match: {}'.format(results_stats_dic['pct_correct_label']))
+    print()
+    if print_incorrect_dogs:
+        print("*********Misclassified Dogs***********")
+        for k,v in results_dic.items():
+            if sum(results_dic[k][3:]) == 1:
+                print(v[0])
+    if print_incorrect_breed:
+        print("*********Misclassified Breeds***********")
+        for k,v in results_dic.items():
+            if sum(results_dic[k][3:]) == 2 and results_dic[k][2] == 0:
+                print(v[0])
+    
+    
+
                 

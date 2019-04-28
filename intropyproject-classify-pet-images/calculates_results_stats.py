@@ -70,4 +70,50 @@ def calculates_results_stats(results_dic):
     """        
     # Replace None with the results_stats_dic dictionary that you created with 
     # this function 
-    return None
+    results_stats_dic = dict()
+
+    n_images = len(results_dic)
+    n_dogs = 0
+    n_correct_dogs = 0
+    n_non_dogs = 0
+    n_correct_non_dogs = 0
+    n_correct_breed = 0
+    n_correct_label = 0
+
+    for k,v in results_dic.items():
+            if results_dic[k][3] == 1:
+                n_dogs += 1
+            if results_dic[k][3] == 1 and results_dic[k][4] == 1:
+                n_correct_dogs += 1
+            if results_dic[k][3] == 0:
+                n_non_dogs += 1
+            if results_dic[k][3] == 0 and results_dic[k][4] == 0:
+                n_correct_non_dogs += 1
+            if results_dic[k][3] == 1 and results_dic[k][2] == 1:
+                n_correct_breed += 1
+            if results_dic[k][2] == 1:
+                n_correct_label += 1
+
+    pct_correct_dogs = (n_correct_dogs/n_dogs) * 100.0 if n_dogs else 0
+    pct_correct_non_dogs = (n_correct_non_dogs/n_non_dogs) * 100.0 if n_non_dogs else 0 
+    pct_correct_breed = (n_correct_breed/n_dogs) * 100.0 if n_dogs else 0
+    pct_correct_label = (n_correct_label/n_images) * 100.0 if n_images else 0
+
+    results_stats_dic['pct_correct_dogs'] = pct_correct_dogs
+    results_stats_dic['n_correct_dogs'] = n_correct_dogs
+    results_stats_dic['n_dogs_img'] = n_dogs
+
+    results_stats_dic['pct_correct_notdogs'] = pct_correct_non_dogs
+    results_stats_dic['n_correct_non_dogs'] = n_correct_non_dogs
+    results_stats_dic['n_notdogs_img'] = n_non_dogs
+
+    results_stats_dic['pct_correct_breed'] = pct_correct_breed
+    results_stats_dic['n_correct_breed'] = n_correct_breed
+
+    results_stats_dic['pct_correct_label'] = pct_correct_label
+    results_stats_dic['n_correct_label'] = n_correct_label
+    results_stats_dic['n_images'] = n_images
+
+    print(results_stats_dic)
+
+    return results_stats_dic
