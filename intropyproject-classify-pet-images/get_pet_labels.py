@@ -17,7 +17,7 @@
 #
 ##
 # Imports python modules
-from os import listdir
+from os import listdir, path
 
 # TODO 2: Define get_pet_labels function below please be certain to replace None
 #       in the return statement with results_dic dictionary that you create 
@@ -25,7 +25,7 @@ from os import listdir
 # 
 def get_pet_labels(image_dir):
     """
-    Creates a dictionary of pet labels (results_dic) based upon the filenames 
+	Creates a dictionary of pet labels (results_dic) based upon the filenames 
     of the image files. These pet image labels are used to check the accuracy 
     of the labels that are returned by the classifier function, since the 
     filenames of the images contain the true identity of the pet in the image.
@@ -44,16 +44,13 @@ def get_pet_labels(image_dir):
     # function
     files = listdir(image_dir)
     #List comprehesion to generate a list of tuples, then pass to dict()
-    return dict([(f,process_dogfile(f)) for f in files])
+    return dict([(f,process_dogfile(f)) for f in files if not f.startswith('.')])
 
 def process_dogfile(f):
-     """
-     Process the dog file name to generate the dog name from it.
-     """
-     # Ignore hidden files
-     if f[0] == ".":
-          return
-     
-     cnt = [ch.lower() for ch in f.split('_') if ch.isalpha()]
-     #return the string a list
-     return [" ".join(cnt)]
+	"""
+	Process the dog file name to generate the dog name from it.
+	"""
+	f = path.splitext(f)[0]
+	cnt = [ch.lower() for ch in f.split('_') if ch.isalpha()]
+	#return the string a list
+	return [" ".join(cnt)]
